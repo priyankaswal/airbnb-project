@@ -9,7 +9,8 @@
     "deploy": "gh-pages -d build",
     "test": "echo \"Error: no test specified\" && exit 1",
     "tailwind": " npx tailwindcss -i ./public/styles/input.css -o ./public/styles/output.css --watch",
-    "start": "concurrently \"npm run tailwind\" \"nodemon app.js\""
+    "start": "concurrently \"npm run tailwind\" \"nodemon app.js\"",
+    "build": "npx tailwindcss -i ./public/styles/input.css -o ./build/output.css && cp -r ./public/* ./build"
   },
   "author": "",
   "license": "ISC",
