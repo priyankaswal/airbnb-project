@@ -1,9 +1,12 @@
 {
-  "name": "7-airbnb",
+  "homepage": "https://priyankaswal.github.io/airbnb-project",
+  "name": "airbnb-project",
   "version": "1.0.0",
   "description": " ",
   "main": "app.js",
   "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "test": "echo \"Error: no test specified\" && exit 1",
     "tailwind": " npx tailwindcss -i ./public/styles/input.css -o ./public/styles/output.css --watch",
     "start": "concurrently \"npm run tailwind\" \"nodemon app.js\""
@@ -26,6 +29,7 @@
     "express": "^4.21.1",
     "express-session": "^1.18.1",
     "express-validator": "^7.2.0",
+    "gh-pages": "^6.3.0",
     "helmet": "^8.0.0",
     "mongodb": "^6.10.0",
     "mongoose": "^8.8.2",
