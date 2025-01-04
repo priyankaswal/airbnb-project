@@ -1,0 +1,41 @@
+<%- include('../partials/head')%>
+</head>
+<body class="bg-gray-100 min-h-screen">
+  <%- include('../partials/nav')%>
+  <main class="pt-20">
+    <!-- Welcome Section -->
+    <div class="flex items-center justify-center mb-10">
+      <div class="bg-white p-8 rounded-lg shadow-lg max-w-lg text-center">
+        <h2 class="text-3xl font-bold text-red-500 mb-4">All Host Homes</h2>
+        <p class="text-gray-600">Explore a variety of homes or host your own!</p>
+      </div>
+    </div>
+
+    <!-- Homes List -->
+    <div class="container mx-auto px-6">
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        <% homes.forEach(home => { %>
+          <div class="bg-white shadow-md rounded-lg overflow-hidden">
+            <img src="<%= home.photoUrl %>" alt="<%= home.houseName %> photo" class="w-full h-56 object-cover">
+            <div class="p-6 text-center">
+              <h3 class="text-2xl font-semibold text-gray-800 mb-3"><%= home.houseName %></h3>
+              <p class="text-lg text-gray-600 font-medium mb-2">Price: <span class="text-blue-600">Rs <%= home.price %></span></p>
+              <p class="text-gray-500 mb-2">Location: <%= home.location %></p>
+              <div class="flex items-center justify-center mb-4">
+                <span class="text-yellow-500 mr-2">⭐</span>
+                <span class="text-gray-600"><%= home.rating %></span>
+              </div>
+              <a href="/host/edit-home/<%= home._id %>?editing=true" class="bg-yellow-500 text-white px-5 py-2 rounded-full hover:bg-yellow-600 transition-colors duration-200 mb-2 inline-block">
+                Edit
+              </a>
+              <form action="/host/delete-home/<%= home._id %>" method="post" class="inline-block">
+                <input type="submit" value="Delete" class="bg-red-500 text-white px-5 py-2 rounded-full hover:bg-red-600 transition-colors duration-200">
+              </form>
+            </div>
+          </div>
+        <% }) %>
+      </div>
+    </div>
+  </main>
+</body>
+</html>
