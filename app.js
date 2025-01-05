@@ -55,7 +55,8 @@ const fileFilter = (req, file, cb) => {
 };
 
 const loggingPath = path.join(rootDir, 'access.log');
-const loggingStream = fs.createWriteStream(loggingPath, {file: "a"});
+const loggingStream = fs.createWriteStream(loggingPath, { flags: "a" });
+
 
 const app = express();
 
@@ -73,7 +74,7 @@ app.use(multer({ storage, fileFilter }).single("photo"));
 
 app.use(
   session({
-    secret: "MERN_LIVE_BATCH",
+    secret: process.env.SESSION_SECRET || "fallbackSecret",
     resave: false,
     saveUninitialized: true,
     store: sessionStore,

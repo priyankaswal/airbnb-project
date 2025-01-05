@@ -92,13 +92,14 @@ exports.postForgotPassword = async (req, res, next) => {
     user.otp = otp;
     user.otpExpiry = Date.now() + 20 * MILLIS_IN_MINUTE;
     await user.save();
+    const baseUrl = process.env.BASE_URL || "http://localhost:3000";
 
     const forgotEmail = {
       to: email,
       from: process.env.FROM_EMAIL,
       subject: "Here is your otp to reset your password.",
       html: `<h1> OTP is: ${otp} </h1>
-      <p> Enter this OTP on <a href="http://localhost:3000/reset-password?email=${email}.com">Rest Password</a> page. </p>`,
+      <p> Enter this OTP on <a href="${baseUrl}/reset-password?email=${email}.com">Rest Password</a> page. </p>`,
     };
 
     await sendGrid.send(forgotEmail);
