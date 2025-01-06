@@ -4,18 +4,11 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "start": "node app.js", 
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "tailwind": "npx tailwindcss -i ./public/styles/input.css -o ./public/styles/output.css --watch",
+    "start": "node app.js",
     "build": "npx tailwindcss -i ./public/styles/input.css -o ./build/output.css && cp -r ./public/* ./build"
   },
   "author": "",
   "license": "ISC",
-  "devDependencies": {
-    "concurrently": "^9.0.1",
-    "nodemon": "^3.1.7",
-    "tailwindcss": "^3.4.14"
-  },
   "dependencies": {
     "@sendgrid/mail": "^8.1.4",
     "bcryptjs": "^2.4.3",
