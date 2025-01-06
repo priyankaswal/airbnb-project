@@ -1,5 +1,36 @@
-node-modules
-access.log
+# Node.js dependencies
+node_modules
+npm-debug.log
+
+# Logs
+*.log
+logs/
+
+# Environment variables
+.env
 .env.production
 .env.development
 .env.example
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Git-related files
+.git
+.gitignore
+
+# Docker-related files
+Dockerfile
+.dockerignore
+
+# Temporary files and folders
+temp/
+*.tmp
+
+# Build artifacts
+build/
+dist/
+
+# Public assets that shouldn't be included in the image
+*.map

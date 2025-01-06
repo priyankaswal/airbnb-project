@@ -1,4 +1,4 @@
-FROM node:18
+FROM node:14
 
 WORKDIR /app
 
@@ -8,7 +8,7 @@ RUN npm install
 
 COPY . .
 
-ENV PORT=3000
+RUN npm run build
 
 EXPOSE 3000
 
