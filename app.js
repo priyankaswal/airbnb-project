@@ -24,8 +24,7 @@ const compression = require('compression');
 const morgan = require('morgan');
 
 const MongoDBStore = mongodb_session(session);
-const MONGO_DB_URL =
-  `mongodb+srv://${process.env.MONGO_DB_USERNAME}:${process.env.MONGO_DB_PASSWORD}@airbnb.346l3.mongodb.net/${process.env.MONGO_DB_DATABASE}?retryWrites=true&w=majority&appName=Airbnb`;
+const MONGO_DB_URL =process.env.MONGO_DB_URL;
 
 const sessionStore = new MongoDBStore({
   uri: MONGO_DB_URL,
@@ -45,8 +44,6 @@ const storage = multer.diskStorage({
 });
 
 const fileFilter = (req, file, cb) => {
-  // const isValidFile = file.mimetype === 'image/png' || file.mimetype === 'image/jpeg' || file.mimetype === 'image/jpg';
-
   const isValidFile = ["image/png", "image/jpeg", "image/jpg"].includes(
     file.mimetype
   );
@@ -80,11 +77,6 @@ app.use(
     store: sessionStore,
   })
 );
-
-// app.use((req, res, next) => {
-//   req.isLoggedIn = req.get("Cookie").split("=")[1] === "true";
-//   next();
-// });
 
 app.use(storeRouter);
 app.use("/host", (req, res, next) => {

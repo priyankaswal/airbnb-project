@@ -50,8 +50,11 @@ exports.postAddFavourites = async (req, res, next) => {
   const homeId = req.body.id;
   const userId = req.session.user._id;
 
-  const user = await User.findOne({ _id: userId });
   try {
+    const user = await User.findOne({ _id: userId });
+    if (!user) {
+      throw new Error("User not found");
+    }
     if (!user.favouriteHomes.includes(homeId)) {
       user.favouriteHomes.push(homeId);
       await user.save();
@@ -63,17 +66,34 @@ exports.postAddFavourites = async (req, res, next) => {
   }
 };
 
-exports.postRemoveFavourite = (req, res, next) => {
+exports.postRemoveFavourite = async (req, res, next) => {
   const homeId = req.params.homeId;
+  const userId = req.session.user._id;
+  
+  try{
+    const user = await User.findOne({ _id: userId });
+    if (!user) {
+      throw new Error("User not found");
+    }
 
-  Favourite.findOneAndDelete({ homeId })
-    .then(() => {
-      res.redirect("/favourites");
-    })
-    .catch((error) => {
-      console.log("Error while remove from favourites", error);
-      res.redirect("/favourites");
-    });
+    if (user.favouriteHomes.includes(homeId)) {
+      user.favouriteHomes = user.favouriteHomes.filter(favHomeId => favHomeId.toString() !== homeId);
+      await user.save();
+    }
+  }catch(err){
+    console.log("Error while remove from favourites", err);
+  }finally {
+    res.redirect("/favourites");
+  }
+
+  // Favourite.findOneAndDelete({ homeId })
+  //   .then(() => {
+  //     res.redirect("/favourites");
+  //   })
+  //   .catch((error) => {
+  //     console.log("Error while remove from favourites", error);
+  //     res.redirect("/favourites");
+  //   });
 };
 
 exports.getHomeDetails = (req, res, next) => {
