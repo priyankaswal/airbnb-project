@@ -1,7 +1,4 @@
-const ENV = process.env.NODE_ENV || 'development';
-require('dotenv').config({
-  path: `.env.${ENV}`
-});
+require('dotenv').config();
 
 // code module
 const path = require("path");
