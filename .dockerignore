@@ -6,10 +6,8 @@ npm-debug.log
 *.log
 logs/
 
-# Environment variables
-.env
+# Environment variables (Exclude all except the one explicitly mounted)
 .env.production
-.env.development
 .env.example
 
 # OS generated files
