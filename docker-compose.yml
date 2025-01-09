@@ -1,0 +1,30 @@
+version: '3.8'
+services:
+  web:
+    build: .
+    image: 89310/airbnb-project:latest
+    container_name: airbnb-web
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - DB_URI=mongodb://mongodb:27017/airbnb
+    volumes:
+      - .:/usr/src/app
+    depends_on:
+      - mongodb
+
+  mongodb:
+    image: mongo
+    container_name: airbnb-db
+    ports:
+      - "27017:27017"
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=${MONGO_DB_USERNAME}
+      - MONGO_INITDB_ROOT_PASSWORD=${MONGO_DB_PASSWORD}
+    volumes:
+      - airbnb-db-data:/data/db
+
+volumes:
+  airbnb-db-data:
+    driver: local
